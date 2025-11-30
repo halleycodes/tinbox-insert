@@ -1,22 +1,19 @@
-function start_point(space, span, index, count) =
-  (((space - (span * count)) / (count + 1)) * (index + 1)) + (index * span);
-
-function center_circle_diameter(position, diameter) =
-  position - (diameter / 2);
-
 function static_vector(i) = [i, i, i];
-
-function pen_positions(box, dims, z_offset) = [for (i = [0:1]) [
-  start_point(box[0], dims[0], 0, 1),
-  start_point(box[1], dims[1], i, 2),
-  z_offset
-  ]];
 
 function map(x, in_min, in_max, out_min, out_max) =
       (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 
 function loop_increment_vars(start, steps, stop) =
   [start, 1 / (steps + 1), stop];
+
+function start_point(space, span, index, count) =
+  (((space - (span * count)) / (count + 1)) * (index + 1)) + (index * span);
+
+function pen_positions(box, dims, z_offset) = [for (i = [0:1]) [
+  start_point(box[0], dims[0], 0, 1),
+  start_point(box[1], dims[1], i, 2),
+  z_offset
+  ]];
 
 function p0p1_to_dxyn(p0, p1) =
 let (
