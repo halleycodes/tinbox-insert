@@ -1,27 +1,26 @@
 use <functions.scad>
 use <shapes.scad>
 
+// goemetric params
 r = 5;
-distance = 100;
-height = 25;
+p0 = [0, 100];
+p1 = [100, 50];
+amplitude = 25;
 
+// iterative params
 middle_hops = 15;
-
 start = 0;
-increment = distance / (1 + middle_hops);
-stop = distance - increment;
+increment = 1 / (1 + middle_hops);
+stop = 1;
 
-function map(x, in_min, in_max, out_min, out_max) =
-      (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-
-for (i = [0 : increment : stop]) {
-  z1 = sin(map(i, 0, distance, 0, 180)) * height;
-  z2 = sin(map(i + increment, 0, distance, 0, 180)) * height;
+for (i = [start : increment : stop]) {
+  a = sine_path(p0, p1, A=amplitude, t=i);
+  b = sine_path(p0, p1, A=amplitude, t=i+increment);
 
   hull() {
-    translate([i, 0, z1])
+    translate([a[0], 0, a[1]])
       sphere(r);
-    translate([i + increment, 0, z2])
+    translate([b[0], 0, b[1]])
       sphere(r);
   }
 }
