@@ -1,12 +1,14 @@
 use <functions.scad>
 use <shapes.scad>
 
+$fn = $preview ? 32 : 64;
+
 // params
-param_box = [161, 49.5, 22];
+param_box = [158, 49.5, 22];
 param_box_allow = 0;
 param_wall_size = 1;
 param_minow_size = 10;
-param_slot_dims = [152, 18];
+param_slot_dims = [156, 22];
 
 // dims
 box = param_box - static_vector(param_box_allow);
@@ -20,7 +22,7 @@ pen_hull_z = box[2] - (pen_hull_dims[1] / 2);
 pen_hull_pos = pen_positions(box, pen_hull_dims, pen_hull_z);
 
 // macaroni code. This will hull out the divider between the two slots
-A = 5;
+A = 10;
 mac_loop_vars = loop_increment_vars(0, 15, 1);
 mac_offset = [0, (pen_slot_dims[1] / 2), 0];
 mac_start = pen_slot_pos[0] + mac_offset;
